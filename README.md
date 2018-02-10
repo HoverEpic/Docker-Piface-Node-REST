@@ -1,7 +1,37 @@
 # Docker-Piface-Node-RPC
 A simple Docker container for controlling Piface on RPi
 
-# Will use :
- - https://hub.docker.com/r/arm32v7/node/
- - https://www.npmjs.com/package/piface-node
+![Screenshot](https://github.com/HoverEpic/Docker-Piface-Node-RPC/raw/master/web-screenshot.png)
+
+WIP: only seting output works.
+
+## TODO :
+ - get/set everything from RPC
+ - write RPC doc
+ - make input status viewable
+
+## Run :
+ - ```sudo modprobe spi-bcm2835``` (or enable SPI from raspi-config)
+ - ```docker run --rm \
+   --name piface \
+   --hostname piface \
+   --cap-add ALL \
+   -v /lib/modules:/lib/modules \
+   -v /sys:/sys \
+   --device /dev/spidev-0.0:/dev/spidev-0.0 \
+   --device /dev/mem:/dev/mem \
+   -p 80:80\
+   --privileged -d epicblox/node-piface```
+
+Access test page with http://pi-ip/ in web browser.
+
+## Plans :
+ - rewrite web page with websockets for live update
+ - make toggle cancel action on fail
+ - multi piface compatibility
+ - auth
+
+## Thanks to :
+ - http://www.piface.org.uk/guides/Install_PiFace_Software/
+ - https://github.com/tualo/node-pifacedigital
  - https://www.npmjs.com/package/express

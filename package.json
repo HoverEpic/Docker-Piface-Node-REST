@@ -1,0 +1,23 @@
+{
+  "name": "Docker-Piface-Node-RPC",
+  "version": "1.0.0",
+  "keywords": [
+    "util",
+    "functional",
+    "server",
+    "client",
+    "browser"
+  ],
+  "author": "Epic",
+  "contributors": [],
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "node-pifacedigital" : "0.1.7"
+  },
+  "license": "ISC",
+  "description": ""
+}

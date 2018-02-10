@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//FR" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1>Docker-Piface-Node-RPC</h1>
+                    <h3>Piface 0</h3>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h3>Inputs</h3>
+                            <div class="row">
+                                <div class="col-md-12 input">
+                                    <!-- http://www.bootstraptoggle.com/ -->
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.0" disabled>
+                                            Button 0
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.1" disabled>
+                                            Button 1
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.2" disabled>
+                                            Button 2
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.3" disabled>
+                                            Button 3
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>Outputs</h3>
+                            <div class="row">
+                                <div class="col-md-6 output">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.0">
+                                            Output 0
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.1">
+                                            Output 1
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.2">
+                                            Output 3
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.3">
+                                            Output 3
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 output">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.4">
+                                            Output 4
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.5">
+                                            Output 5
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.6">
+                                            Output 6
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.7">
+                                            Output 7
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                console.log("ready!");
+
+                //get status in + out
+                function getAll() {
+                    $.ajax({
+                        url: '/api/v1/input/get',
+                        type: 'GET',
+                        contentType: 'application/json',
+                        data: JSON.stringify({}),
+                        statusCode: {
+                            404: function () {
+                                alert("page not found");
+                            }
+                        }
+                    }).done(function () {
+                        
+                    }).fail(function () {
+                        alert("error");
+                    });
+                    $.ajax({
+                        url: '/api/v1/output/get',
+                        type: 'GET',
+                        contentType: 'application/json',
+                        data: JSON.stringify({})
+                    }).done(function () {
+                        alert("success");
+                    }).fail(function () {
+                        alert("error");
+                    });
+                }
+
+                //set output
+                function setOutput(piface, pin, state) {
+                    $.ajax({
+                        url: '/api/v1/output/set',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({piface: piface, pin: pin, state: state})
+                    }).done(function () {
+                        console.log("Applied: Piface " + piface + " pin " + pin + " changed to " + state + " !");
+                        return true;
+                    }).fail(function () {
+                        console.log("Failed: Piface " + piface + " pin " + pin + " changed to " + state + " !");
+                        return false;
+                    });
+                }
+
+                //listener
+                $('.output input').change(function () {
+                    var id = $(this).attr('id').split(".");
+                    var state = !$(this).parent().hasClass('off');
+                    if (typeof id !== 'undefined' && id.length > 0)
+                    {
+                        setOutput(id[0], id[1], state);
+                        //if (!setOutput(id[0], id[1], state))
+                        //    if (state) {
+                        //        $('.output input #' + id[0] + '.' + id[1]);
+                        //    } else {
+                        //        $(this).parent().removeClass('off');
+                        //    }
+                        //console.log("Piface " + id[0] + " pin " + id[1] + " changed to " + state + " !");
+                    }
+                })
+            });
+        </script>
+    </body>
+</html>
