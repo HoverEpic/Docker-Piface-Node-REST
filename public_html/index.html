@@ -11,43 +11,22 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-7">
-                    <h1>Docker-Piface-Node-RPC</h1>
+                    <h1>Docker-Piface-Node-RPC <span id="error" class="label label-danger hidden">Offline</span></h1>
                     <h3>Piface 0</h3>
                     <div class="row">
                         <div class="col-md-2">
                             <h3>Inputs</h3>
                             <div class="row">
                                 <div class="col-md-12 input">
-                                    <!-- http://www.bootstraptoggle.com/ -->
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.0" disabled>
-                                            Button 0
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.1" disabled>
-                                            Button 1
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.2" disabled>
-                                            Button 2
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.3" disabled>
-                                            Button 3
-                                        </label>
-                                    </div>
+                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input01">Button 1</div>
+                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input02">Button 2</div>
+                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input03">Button 3</div>
+                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input04">Button 4</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <h3>Outputs</h3>
+                            <h3>Outputs</h3><!-- http://www.bootstraptoggle.com/ -->
                             <div class="row">
                                 <div class="col-md-6 output">
                                     <div class="checkbox">
@@ -115,32 +94,46 @@
                 console.log("ready!");
 
                 //get status in + out
-                function getAll() {
+                function UpdateAll() {
                     $.ajax({
                         url: '/api/v1/input/get',
                         type: 'GET',
                         contentType: 'application/json',
-                        data: JSON.stringify({}),
-                        statusCode: {
-                            404: function () {
-                                alert("page not found");
+                        success: function (data) {
+                            if (data.error) {
+                                console.log("Error !"); // TODO
+                            } else {
+                                $("#error").addClass('hidden');
+                                $("input").bootstrapToggle('enable');
+                                for (var piface = 0; piface < 1; piface++) { // TODO multi piface
+                                    var input = data.data[piface];
+                                    for (var button = 1; button <= input.length; button++) {
+                                        var state = input[button];
+                                        if (state) {
+                                            $(".input #input" + piface + "" + button).removeClass('label-default');
+                                            $(".input #input" + piface + "" + button).addClass('label-success');
+                                        } else {
+                                            $(".input #input" + piface + "" + button).addClass('label-default');
+                                            $(".input #input" + piface + "" + button).removeClass('label-success');
+                                        }
+                                    }
+                                }
                             }
                         }
-                    }).done(function () {
-                        
                     }).fail(function () {
-                        alert("error");
+                        console.log("fail");
+                        $("#error").removeClass('hidden');
+                        $('input').bootstrapToggle('disable');
                     });
-                    $.ajax({
-                        url: '/api/v1/output/get',
-                        type: 'GET',
-                        contentType: 'application/json',
-                        data: JSON.stringify({})
-                    }).done(function () {
-                        alert("success");
-                    }).fail(function () {
-                        alert("error");
-                    });
+                    //$.ajax({ // TODO implements outputs status
+                    //    url: '/api/v1/output/get',
+                    //    type: 'GET',
+                    //    crossDomain: true,
+                    //    dataType: 'jsonp',
+                    //    contentType: 'application/json'
+                    //}).done(function () {
+                    //}).fail(function () {
+                    //});
                 }
 
                 //set output
@@ -158,6 +151,15 @@
                         return false;
                     });
                 }
+
+                // Update task
+                function updateTask() {
+                    UpdateAll();
+                    setTimeout(function () {
+                        updateTask()
+                    }, 1000);
+                }
+                updateTask();
 
                 //listener
                 $('.output input').change(function () {
