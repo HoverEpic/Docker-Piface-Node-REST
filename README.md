@@ -1,4 +1,4 @@
-# Docker-Piface-Node-RPC
+# Docker-Piface-Node-REST
 A simple Docker container for controlling PiFace on RPi
 
 Docker Hub : https://hub.docker.com/r/epicblox/node-piface/
