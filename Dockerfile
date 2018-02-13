@@ -1,4 +1,4 @@
-FROM hypriot/rpi-node
+FROM hypriot/rpi-node:slim
 
 WORKDIR /usr/src/app
 
@@ -11,6 +11,9 @@ RUN git clone https://github.com/piface/libpifacedigital.git && \
     cd libpifacedigital/ && \
     make && \
     sudo make install
+
+RUN mkdir local_modules && cd local_modules && \
+    git clone https://github.com/HoverEpic/node-pifacedigital.git
 
 COPY package*.json .
 

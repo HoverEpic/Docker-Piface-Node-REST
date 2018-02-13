@@ -1,189 +1,286 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//FR" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="fr">
     <head>
+        <title>Docker-Piface-Node-RPC</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+        <link rel="shortcut icon" type="image/png" href="http://www.piface.org.uk/static/icons/pifaceLogoIcons_512.png"/>
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+        <style>
+            .input_label {
+                display: table;
+                font-size: 100%;
+                font-weight: 1;
+                margin-top: 8px;
+            }
+        </style>
     </head>
     <body>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-7">
                     <h1>Docker-Piface-Node-RPC <span id="error" class="label label-danger hidden">Offline</span></h1>
-                    <h3>Piface 0</h3>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h3>Inputs</h3>
+                    <div id="pifacesContainer"></div>
+                    <script id="pifaceEntry" type="text/html">
+                        <div id="piface_{{piface_id}}">
+                            <h3>Piface {{piface_id}}</h3>
                             <div class="row">
-                                <div class="col-md-6 input">
-                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input01">Input 1</div>
-                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input02">Input 2</div>
-                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input03">Input 3</div>
-                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input04">Input 4</div>
+                                <div class="col-md-3">
+                                    <h3>Inputs</h3>
+                                    <div class="row">
+                                        <div class="col-md-6 input">
+                                            <div class="label label-default input_label" id="input_{{piface_id}}_0">Input 0</div>
+                                            <div class="label label-default input_label" id="input_{{piface_id}}_1">Input 1</div>
+                                            <div class="label label-default input_label" id="input_{{piface_id}}_2">Input 2</div>
+                                            <div class="label label-default input_label" id="input_{{piface_id}}_3">Input 3</div>
+                                        </div>
+                                        <div class="col-md-6 input">
+                                            <div class="label label-default input_label" id="input_{{piface_id}}_4">Input 4</div>
+                                            <div class="label label-default input_label" id="input_{{piface_id}}_5">Input 5</div>
+                                            <div class="label label-default input_label" id="input_{{piface_id}}_6">Input 6</div>
+                                            <div class="label label-default input_label" id="input_{{piface_id}}_7">Input 7</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 input">
-                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input05">Input 5</div>
-                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input06">Input 6</div>
-                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input07">Input 7</div>
-                                    <div class="label label-default" style="display: table; font-size: 100%; font-weight: 1;margin-top: 8px;" id="input08">Input 8</div>
+                                <div class="col-md-4">
+                                    <h3>Outputs</h3><!-- http://www.bootstraptoggle.com/ -->
+                                    <div class="row">
+                                        <div class="col-md-6 output">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="output_{{piface_id}}_0">
+                                                    Output 0
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="output_{{piface_id}}_1">
+                                                    Output 1
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="output_{{piface_id}}_2">
+                                                    Output 3
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="output_{{piface_id}}_3">
+                                                    Output 3
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 output">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="output_{{piface_id}}_4">
+                                                    Output 4
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="output_{{piface_id}}_5">
+                                                    Output 5
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="output_{{piface_id}}_6">
+                                                    Output 6
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="output_{{piface_id}}_7">
+                                                    Output 7
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <h3>Outputs</h3><!-- http://www.bootstraptoggle.com/ -->
-                            <div class="row">
-                                <div class="col-md-6 output">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.0">
-                                            Output 0
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.1">
-                                            Output 1
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.2">
-                                            Output 3
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.3">
-                                            Output 3
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 output">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.4">
-                                            Output 4
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.5">
-                                            Output 5
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.6">
-                                            Output 6
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-size="mini" id="0.7">
-                                            Output 7
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </script>
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                console.log("ready!");
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    console.log("ready!");
+                    
+                    var pifacesCount = 0;
+                    var outputUpdated = [];
 
-                //get status in + out
-                function UpdateAll() {
-                    $.ajax({
-                        url: '/api/v1/input/get',
-                        type: 'GET',
-                        contentType: 'application/json',
-                        success: function (data) {
-                            if (data.error) {
-                                console.log("Error !"); // TODO
-                            } else {
-                                $("#error").addClass('hidden');
-                                $("input").bootstrapToggle('enable');
-                                for (var piface = 0; piface < 1; piface++) { // TODO multi piface
-                                    var input = data.data[piface];
-                                    for (var button = 1; button <= input.length; button++) {
-                                        var state = input[button];
-                                        if (state) {
-                                            $(".input #input" + piface + "" + button).removeClass('label-default');
-                                            $(".input #input" + piface + "" + button).addClass('label-success');
-                                        } else {
-                                            $(".input #input" + piface + "" + button).addClass('label-default');
-                                            $(".input #input" + piface + "" + button).removeClass('label-success');
+                    function updatePifaces() {
+                        $.ajax({
+                            url: '/api/v1/piface/get',
+                            type: 'GET',
+                            contentType: 'application/json',
+                            success: function (data) {
+                                if (data.error) {
+                                    console.log(data.error); // TODO
+                                } else {
+                                    $("#error").addClass('hidden');
+                                    pifacesCount = data.data.length;
+                                    for (var piface = 0; piface < pifacesCount; piface++) {
+                                        addPiface(piface);
+                                    }
+                                }
+                            }
+                        }).fail(function () {
+                            console.log("fail");
+                            $("#error").removeClass('hidden');
+                            $('input').bootstrapToggle('disable');
+                        });
+                    }
+
+                    //get status in + out
+                    function updateInput() {
+                        $.ajax({
+                            url: '/api/v1/input/get',
+                            type: 'GET',
+                            contentType: 'application/json',
+                            success: function (data) {
+                                if (data.error) {
+                                    console.log(data.error); // TODO
+                                } else {
+                                    $("#error").addClass('hidden');
+                                    $("input").bootstrapToggle('enable');
+                                    for (var piface = 0; piface < pifacesCount; piface++) {
+                                        var input = data.data[piface];
+                                        for (var button = 0; button <= input.length; button++) {
+                                            var state = input[button];
+                                            if (state) {
+                                                $("#input_" + piface + "_" + button).removeClass('label-default');
+                                                $("#input_" + piface + "_" + button).addClass('label-success');
+                                            } else {
+                                                $("#input_" + piface + "_" + button).addClass('label-default');
+                                                $("#input_" + piface + "_" + button).removeClass('label-success');
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
-                    }).fail(function () {
-                        console.log("fail");
-                        $("#error").removeClass('hidden');
-                        $('input').bootstrapToggle('disable');
-                    });
-                    //$.ajax({ // TODO implements outputs status
-                    //    url: '/api/v1/output/get',
-                    //    type: 'GET',
-                    //    crossDomain: true,
-                    //    dataType: 'jsonp',
-                    //    contentType: 'application/json'
-                    //}).done(function () {
-                    //}).fail(function () {
-                    //});
-                }
-
-                //set output
-                function setOutput(piface, pin, state) {
-                    $.ajax({
-                        url: '/api/v1/output/set',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify({piface: piface, pin: pin, state: state})
-                    }).done(function () {
-                        console.log("Applied: Piface " + piface + " pin " + pin + " changed to " + state + " !");
-                        return true;
-                    }).fail(function () {
-                        console.log("Failed: Piface " + piface + " pin " + pin + " changed to " + state + " !");
-                        return false;
-                    });
-                }
-
-                // Update task
-                function updateTask() {
-                    UpdateAll();
-                    setTimeout(function () {
-                        updateTask()
-                    }, 1000);
-                }
-                updateTask();
-
-                //listener
-                $('.output input').change(function () {
-                    var id = $(this).attr('id').split(".");
-                    var state = !$(this).parent().hasClass('off');
-                    if (typeof id !== 'undefined' && id.length > 0)
-                    {
-                        setOutput(id[0], id[1], state);
-                        //if (!setOutput(id[0], id[1], state))
-                        //    if (state) {
-                        //        $('.output input #' + id[0] + '.' + id[1]);
-                        //    } else {
-                        //        $(this).parent().removeClass('off');
-                        //    }
-                        //console.log("Piface " + id[0] + " pin " + id[1] + " changed to " + state + " !");
+                        }).fail(function () {
+                            console.log("fail");
+                            $("#error").removeClass('hidden');
+                            $('input').bootstrapToggle('disable');
+                        });
                     }
-                })
-            });
-        </script>
-    </body>
-</html>
+
+                    function updateOutput() {
+                        $.ajax({
+                            url: '/api/v1/output/get',
+                            type: 'GET',
+                            contentType: 'application/json',
+                            success: function (data) {
+                                if (data.error) {
+                                    console.log(data.error); // TODO
+                                } else {
+                                    $("#error").addClass('hidden');
+                                    $("input").bootstrapToggle('enable');
+                                    for (var piface = 0; piface < pifacesCount; piface++) {
+                                        var output = data.data[piface];
+                                        for (var button = 0; button < output.length; button++) {
+                                            var state = output[button];
+                                            if (state && $("#output_" + piface + "_" + button).parent().hasClass('off')) {
+                                                $("#output_" + piface + "_" + button).bootstrapToggle('on');
+                                            } else if (!state && !$("#output_" + piface + "_" + button).parent().hasClass('off')) {
+                                                $("#output_" + piface + "_" + button).bootstrapToggle('off');
+                                            } else {
+                                                //no update
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }).fail(function () {
+                            console.log("fail");
+                            $("#error").removeClass('hidden');
+                            $('input').bootstrapToggle('disable');
+                        });
+                    }
+
+                    function addPiface(piface_id) {
+                        var source = document.getElementById("pifaceEntry").innerHTML;
+                        var template = Handlebars.compile(source);
+                        var html = template({piface_id: piface_id});
+                        var div = document.createElement('div');
+                        div.innerHTML = html.trim();
+                        document.getElementById("pifacesContainer").appendChild(div.firstChild);
+                        for (var button = 0; button <= 7; button++) {
+                            $("#output_" + piface_id + "_" + button).bootstrapToggle();
+                            $("#output_" + piface_id + "_" + button).change(function () {
+                                var id = $(this).attr('id').replace("output_", "").split("_");
+                                var state = !$(this).parent().hasClass('off');
+                                if (typeof id !== 'undefined' && id.length > 0)
+                                {
+                                    setOutput(id[0], id[1], state);
+                                    //if (!setOutput(id[0], id[1], state))
+                                    //    if (state) {
+                                    //        $('.output input #' + id[0] + '.' + id[1]);
+                                    //    } else {
+                                    //        $(this).parent().removeClass('off');
+                                    //    }
+                                    console.log("Piface " + id[0] + " pin " + id[1] + " changed to " + state + " !");
+                                }
+                            });
+                        }
+                    }
+
+                    //set output
+                    function setOutput(piface, pin, state) {
+                        $.ajax({
+                            url: '/api/v1/output/set',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({piface: piface, pin: pin, state: state})
+                        }).done(function () {
+                            console.log("Applied: Piface " + piface + " pin " + pin + " changed to " + state + " !");
+                            return true;
+                        }).fail(function () {
+                            console.log("Failed: Piface " + piface + " pin " + pin + " changed to " + state + " !");
+                            return false;
+                        });
+                    }
+
+                    // Update task
+                    function updateTask() {
+                        updateInput();
+                        updateOutput();
+                        setTimeout(function () {
+                            updateTask()
+                        }, 1000);
+                    }
+
+                    // Start
+                    updatePifaces();
+                    updateTask();
+
+                    // Listener
+                    $('.output input').change(function () {
+                        var id = $(this).attr('id').replace("output_", "").split("_");
+                        var state = !$(this).parent().hasClass('off');
+                        if (typeof id !== 'undefined' && id.length > 0 && id[0] < pifacesCount)
+                        {
+                            setOutput(id[0], id[1], state);
+                            //if (!setOutput(id[0], id[1], state))
+                            //    if (state) {
+                            //        $('.output input #' + id[0] + '.' + id[1]);
+                            //    } else {
+                            //        $(this).parent().removeClass('off');
+                            //    }
+                            console.log("Piface " + id[0] + " pin " + id[1] + " changed to " + state + " !");
+                        }
+                    });
+                });
+            </script>
+        </body>
+    </html>

@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "express": "^4.16.2",
-    "node-pifacedigital" : "0.1.7"
+    "node-pifacedigital" : "file:local_modules/node-pifacedigital"
   },
   "license": "ISC",
   "description": ""
