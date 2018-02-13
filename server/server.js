@@ -50,7 +50,7 @@ app.get('/api/v1/input/get', (req, res) => {
     var data = [];
     for (var i = 0; i < pifaces.length; i++) {
         var input = [];
-        for (var j = 1; j <= 4; j++) {
+        for (var j = 1; j <= 8; j++) {
             var state = (pifaces[i].getInput() & j) === 0;
             input[j] = state;
         }
@@ -99,7 +99,7 @@ function dec2bin(dec) {
 //
 //    var input = pifacedigital.getInput();
 //    console.log("Input state all " + dec2bin(input));
-//    for (var i = 1; i <= 4; i++) {
+//    for (var i = 1; i <= 8; i++) {
 //        var state = (pifacedigital.getInput() & i) == 0;
 //        console.log("Input state " + i + " " + state);
 //    }
